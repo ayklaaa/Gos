@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block main %}
+<body>
+<div class="container">
+        <h1>Запись на услугу</h1>
+        <h5>Выберите учреждение, услугу и удобное время для вашего визита. Мы поможем минимизировать ваше время в очереди!</h5>
+
+
+    <form method="POST">
+
+
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Отображаем форму -->
+        <button type="submit" id="zayavka">Отправить заявку</button>
+    </form></div>
+
+
+<style>
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+header{
+    width: 95%;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #4c2cb1;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+h5{
+    text-align: center;
+    font-weight: 100;
+    width: 650px;
+    margin: 0 auto;
+}
+p {
+    text-align: left;
+    color: #6c6c6c;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+}
+#zayavka{
+    width: 200px;
+    height: 50px;
+    background: #674E9C;
+    color: #e1e1e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 7px;
+
+}
+select, input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+select:focus, input[type="date"]:focus {
+    outline-color: #4c2cb1;
+}
+
+button.submit-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #4c2cb1;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.submit-button:hover {
+    background-color: #3a1e91;
+}
+
+.map img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+#calendar, #time-selection {
+    margin-bottom: 10px;
+}
+
+#time-slot {
+    margin-top: 8px;
+}
+
+</style>
+{% include 'include/footer.html' %}
+{% endblock %}

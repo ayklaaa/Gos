@@ -1,0 +1,413 @@
+{% extends 'base.html' %}
+{% block main %}
+    <body>
+
+    <div class="str"></div>
+    <div class="banner">
+        <div class="text-banner">
+            <h1>Экономьте время с ГосОчередь!</h1>
+            <p>Запишитесь в очередь в любое госучреждение за несколько кликов.</p>
+            <div class="buttons">
+                {% if request.user.is_authenticated %}
+                    <a href="/test" class="btn">Оформить заявку</a>
+                {% else %}
+                    <a href="/accounts/login/" class="btn">Оформить заявку</a>
+                {% endif %}
+                <a href="#" class="btn">Узнать больше</a>
+            </div>
+        </div>
+    </div>
+    <div class="title">
+        Почему выбирают ГосОчередь?
+    </div>
+
+    <div class="why_block">
+        <div class="advantage">
+            <img src="media/time.svg" alt="">
+            <h2>Быстрота</h2>
+            <p>Заявка занимает не более 2 минут</p>
+        </div>
+        <div class="advantage">
+            <img src="media/Vector.svg" alt="">
+            <h2>Удобство</h2>
+            <p>Доступ с любого устройства</p>
+        </div>
+        <div class="advantage">
+            <img src="media/eye.svg" alt="">
+            <h2>Прозрачность</h2>
+            <p>Полный контроль за статусом заявки</p>
+        </div>
+    </div>
+    <div class="title">
+        Пошаговая инструкция
+    </div>
+
+    <div class="instructions">
+        <div class="instructions_block">
+            <div class="gif"><img src="/media/q.jpg" width="589" height="405"></div>
+            <div class="description">
+                <div class="text">
+                    <h3>Зарегистрируйтесь или войдите</h3>
+                    <p><b> Создайте учётную запись, </b> указав логин и пароль.<br>
+                        <b> Для зарегистрированных пользователей: </b> войдите с помощью своих данных.</p>
+                </div>
+                <a href="#" class="btn-r">Начать сейчас</a>
+            </div>
+        </div>
+        <div class="instructions_block">
+
+            <div class="description">
+                <div class="text">
+                    <h3>Выберите услугу и удобное время</h3>
+                    <p>Найдите нужное учреждение и услугу из списка.<br>
+                        Укажите подходящее время для вашего визита.<br>
+                        Получите электронный талон и напоминание о визите.</p></div>
+                <a href="#" class="btn-r">Начать сейчас</a>
+            </div>
+            <div class="gif"><img src='media/q.mp4' alt=""></div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% include 'include/footer.html' %}
+
+
+
+    <style>
+
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin: 0px 10px;
+        }
+
+        #header-placeholder {
+            position: fixed;
+            width: 100%;
+            background-color: white;
+        }
+
+        .authorization {
+            font-size: 18px;
+        }
+
+        #search-input {
+            width: 0;
+            opacity: 0;
+            transition: width 0.3s ease, opacity 0.3s ease;
+
+        }
+
+        #search-input:focus {
+            width: 150px; /* Длина поля ввода при фокусе */
+            opacity: 1;
+            outline: none;
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .search-btn:focus {
+            outline: none;
+        }
+
+        .search-container:hover #search-input {
+            width: 150px;
+            opacity: 1;
+        }
+
+        .link {
+            display: flex;
+            margin: 0 auto;
+            font-size: 18px;
+        }
+
+        header {
+            padding: 0px 60px;
+            position: fixed;
+            background-color: white;
+            width: 100%;
+        }
+
+        .group {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .wrapper {
+            width: 300px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .banner {
+            width: 1250px;
+            height: 440px;
+            display: flex;
+            background: linear-gradient(#BEA4ED, #E5C2D5);
+            margin-top: 50px;
+
+            color: white;
+            text-align: center;
+            line-height: 100px;
+            margin: 0 auto;
+            border-radius: 15px;
+        }
+
+        .buttons {
+            font-size: 24px;
+            gap: 30px;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        a.btn {
+            font-size: 24px;
+            background-color: #E9D5E8;
+            padding: 10px 70px;
+            color: #563995;
+
+        }
+
+        .text-banner {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+
+        }
+
+        .text-banner p {
+            font-size: 24px;
+        }
+
+        .navbar-nav {
+            flex-direction: row;
+            gap: 40px;
+        }
+
+        .why_block {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            padding: 50px 0;
+            gap: 10px;
+        }
+
+        .advantage {
+            display: flex;
+            width: 380px;
+            height: 257px;
+            background-color: #EEE7FC;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 10px;
+            color: #563995;
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            color: #674E9C;
+
+        }
+
+        .gif {
+            width: 589px;
+            height: 405px;
+            background-color: gray;
+        }
+
+        .instructions_block {
+            display: flex;
+            gap: 50px;
+        }
+
+        .description {
+            display: flex;
+            max-width: 638px;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .str {
+            height: 100px;
+        }
+
+        .instructions {
+            margin: 75px 70px;
+            gap: 110px;
+            display: grid;
+            justify-content: center;
+        }
+
+        a.btn-r {
+            font-size: 24px;
+            background-color: #EEE7FC;
+            padding: 10px 70px;
+            color: #563995;
+            border-radius: 7px;
+            outline: none;
+            text-decoration: none;
+        }
+
+
+        .text h3 {
+            font-size: 32px;
+            color: #563995;
+            font-weight: bold;
+        }
+
+        .text p {
+            font-size: 24px;
+            color: #674E9C;
+            margin-top: 35px;
+        }
+
+
+        footer {
+            background-color: #f5f0ff;
+            color: #4a2c72;
+            padding: 20px 0;
+            height: 260px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 98px;
+        }
+
+        .footer-section {
+
+            margin: 0 1px;
+
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #7a269e; /* Оттенок фиолетового */
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            padding: 0 20px;
+            font-size: 20px;
+        }
+
+        .footer-section ul li {
+            margin: 5px 0;
+        }
+
+        .footer-section ul li a {
+            text-decoration: none;
+            color: #4a2c72;
+            font-size: 20px;
+        }
+
+        .footer-section ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-section p {
+            margin: 5px 0;
+            font-size: 20px;
+        }
+
+        .footer-section a {
+            color: #4a2c72;
+            text-decoration: none;
+        }
+
+        .social-media a {
+            display: inline-block;
+            margin: 0 5px;
+            transition: filter 0.3s ease, opacity 0.3s ease;
+
+        }
+
+        .social-media img {
+            width: 40px;
+            height: 40px;
+            filter: brightness(1);
+        }
+
+        .logo {
+
+            width: 165px;
+            height: 65px;
+        }
+
+        .social-media a:hover img {
+            filter: brightness(1.5); /* Осветление иконки */
+            opacity: 0.8; /* Дополнительно уменьшаем насыщенность (необязательно) */
+        }
+
+        .social-media {
+            display: flex;
+
+        }
+
+    </style>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+</body>
+
+

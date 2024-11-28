@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Django Project</title>
+    {##}
+    {#    <!-- Подключение локального CSS -->#}
+    <link rel="stylesheet" href="{% static '/style.css' %}">
+
+    <!-- Подключение Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><img src="/media/img_h.svg" alt=""></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="link">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Главная <span class="sr-only"></span></a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                        <a href="/test" class="nav-link">Оформить заявку</a>
+                    {% else %}
+                        <a href="/accounts/login/" class="nav-link">Оформить заявку</a>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Инструкция</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile">Профиль</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div class="group">
+                <form class="form-inline my-4 my-lg-0" id="search-form">
+                    <div class="search-container">
+                        <button type="button" id="search-icon" class="search-btn">
+                            <img src="/media/search.svg" alt="">
+                        </button>
+
+                        <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Поиск"
+                                aria-label="Search"
+                                id="search-input"
+                        >
+                    </div>
+                </form>
+
+                <div class="authorization">
+                    {% if request.user.is_authenticated %}
+                        <button class="btn my-2 my-sm-0" style="background-color: #F0EBFC; color: #000;">
+                            <a href="{% url 'logout' %}" style="text-decoration: none; color: #000;">Выйти</a>
+                        </button>
+                    {% else %}
+                        <button class="btn my-2 my-sm-0" style="background-color: #F0EBFC; color: #000;">
+                            <a href="{% url 'login' %}" style="text-decoration: none; color: #000;">Войти</a>
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+</body>
+<title>Профиль</title>
+<p></p>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9ff;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        display: flex;
+        margin: 20px auto;
+        max-width: 900px;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        min-height: 439px;
+    }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
+    header {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .sidebar {
+
+        padding: 20px;
+        padding-top: 35px;
+        flex: 1;
+    }
+
+    .sidebar h2 {
+        color: #674E9C;
+        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 30px;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0px 0px 0px 10px;
+    }
+
+    .sidebar ul li {
+        margin: 10px 0;
+    }
+
+    .sidebar ul li a {
+        color: #493B67;
+        text-decoration: none;
+    }
+
+    .profile-content {
+        flex: 2;
+        padding: 30px;
+    }
+
+    .profile-header {
+        font-size: 24px;
+        font-weight: bold;
+        color: #563995;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+
+
+    .profile-info {
+        margin-top: 20px;
+        padding: 15px;
+        background: #faf8ff;
+
+        border-radius: 10px;
+    }
+
+    .profile-info .info-item {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .info-item span {
+        font-size: 16px;
+        color: #333;
+    }
+
+    .info-item a {
+        font-size: 14px;
+        color: #5c4fcf;
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <h2>Профиль</h2>
+        <ul>
+            <li><a href="#">Все заявления</a></li>
+            <li><a href="#">Одобренные заявления</a></li>
+            <li><a href="#">В ожидании</a></li>
+            <li><a href="#">Отказанные заявления</a></li>
+        </ul>
+    </div>
+    <div class="profile-content">
+        <div class="profile-header">{{ user.first_name }} {{ user.last_name }} {{ user.middle_name|default:"" }}</div>
+        <div class="profile-info">
+
+
+            <div class="info-item">
+                <span>{{ user.username|default:"Номер телефона не указан" }}</span>
+
+                {#                    <a href="{% url 'shopapp:edit_profile' %}">Изменить</a>#}
+            </div>
+
+            <div class="info-item">
+                <a href="{% url 'password_change' %}">Сменить пароль</a>
+            </div>
+            <div class="info-item">
+                <a href="#">Удалить учётную запись</a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="footer-container">
+        <div class="logo">
+            <img src="/media/img_h.svg" alt="" width="165" height="65"></div>
+        <div class="footer-section">
+
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">О сервисе</a></li>
+                <li><a href="#">Инструкция</a></li>
+                <li><a href="#">Частые вопросы</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Контактные данные</h3>
+            <p>Телефон: +7 (123) 456-78-90</p>
+            <p>Email: <a href="mailto:info@gosqueue.ru">info@gosqueue.ru</a></p>
+            <p>Адрес: г. Москва, ул. Примерная, д. 1.</p>
+        </div>
+        <div class="social-media">
+            <a href="#"><img src="/media/telegramm.svg" alt="Telegram"></a>
+            <a href="#"><img src="/media/facebook.svg" alt="Facebook"></a>
+            <a href="#"><img src="/media/vk.svg" alt="VK"></a>
+            <a href="#"><img src="/media/instagramm.svg" alt="Instagram"></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
